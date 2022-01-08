@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Smart home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Lato", sans-serif;
+	        background-color: #f2f2f2;
+            
+        }
+        .clock{
+            font-weight: 500;
+            color: #003366;
+        }
+    </style>
+  </head>
+  <body>
+   <div class="container" style="text-align: center;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="livingroom">
+                <div class="border border-4 rounded m-2 p-4">
+                    <h3>PHÒNG KHÁCH</h3>
+                        <div class="d-flex justify-content-center">
+                            <div class="clock"> <span id="today_time"></span></div>
+                            <div style="margin: 0px 30px;">
+                                <img src="/static/image/hot.png" width="30px" style="margin-right: 10px;"><span><b>{{nhietdo}}	&#176;C</b></span>
+                            </div>
+                            <div>
+                                <img src="/static/image/humidity.png" width="30px" style="margin-right: 10px;"><b><span>{{doam}}%</b></span>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="d-flex justify-content-center mt-4">
+                            <div class="light border border-4 rounded p-4" style="margin-right: 50px;">
+                                <label>
+                                    <a id="light" style="display: none;" href="{{ duongdan_denkhach  }}" type="button">{{ denkhach  }}</a>
+                                    <img src="/static/image/light_on.png" width="50px" id="light_on" class="" onclick="livingOff('light_on','light_off', 'light', 'light_status')">
+                                    <img src="/static/image/light_off.png" width="50px" id="light_off" class="" onclick="livingOn('light_off','light_on', 'light', 'light_status')">
+                                    <br/>
+                                    <span>Đèn phòng khách: <span id="light_status"></span></span>
+                                </label>
+                            </div>
+                           
+                            <div class="light_door border border-4 rounded p-4" style="margin-right: 50px;">
+                                <a id="light_door" style="display: none;" href="{{ duongdan_dencua  }}" type="button">{{ dencua  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="light_door_on" class="" onclick="livingOff('light_door_on','light_door_off', 'light_door', 'light_door_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="light_door_off" class="" onclick="livingOn('light_door_off','light_door_on', 'light_door', 'light_door_status')">
+                                <br/>
+                                <span>Đèn cửa: <span id="light_door_status"></span></span>
+                            </div>
+                            <div class="door border border-4 rounded p-4">
+                                <a id="door" style="display: none;" href="{{ duongdancua }}" type="button">OFF</a>
+                                <img src="/static/image/door_opened.png" width="50px" id="door_on" class="" onclick="livingOff('door_on','door_off', 'door', 'door_status')">
+                                <img src="/static/image/door_closed.png" width="50px" id="door_off" class="" onclick="livingOn('door_off','door_on', 'door', 'door_status')">
+                                <br/>
+                                <span>Cửa: <span id="door_status"></span></span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="kitchen">
+                <div class="border border-4 rounded m-2 p-4">
+                    <h3> BẾP</h3>
+                    <hr/>
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <div class="kitchen_light border border-4 rounded p-4">
+                                <a id="kitchen_light" style="display: none;" href="{{ duongdan_denbep  }}" type="button">{{ denbep  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="kitchen_light_on" class="" onclick="livingOff('kitchen_light_on','kitchen_light_off', 'kitchen_light', 'kitchen_light_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="kitchen_light_off" class="" onclick="livingOn('kitchen_light_off','kitchen_light_on', 'kitchen_light', 'kitchen_light_status')">
+                                <br/>
+                                <span>Đèn: <span id="kitchen_light_status"></span></span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="bedroom1">
+                <div class="border border-4 rounded m-2 p-4">
+                    <h3>PHÒNG NGỦ 1</h3>
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <div class="bedroom1_light border border-4 rounded p-4" style="margin-right: 50px;">
+                                <a id="bedroom1_light" style="display: none;" href="{{ duongdan_denngu1  }}" type="button">{{ denngu1  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="bedroom1_light_on" class="" onclick="livingOff('bedroom1_light_on','bedroom1_light_off', 'bedroom1_light', 'bedroom1_light_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="bedroom1_light_off" class="" onclick="livingOn('bedroom1_light_off','bedroom1_light_on', 'bedroom1_light', 'bedroom1_light_status')">
+                                <br/>
+                                <span>Đèn phòng ngủ: <span id="bedroom1_light_status"></span></span>
+                            </div>
+                          <div class="bedroom1_fan border border-4 rounded p-4" style="margin-right: 50px;">
+                                <a id="bedroom1_fan" style="display: none;" href="{{ duongdan_quatngu  }}" type="button">{{ quatngu  }}</a>
+                                <img src="/static/image/fan_on.png" width="50px" id="bedroom1_fan_on" class="" onclick="livingOff('bedroom1_fan_on','bedroom1_fan_off', 'bedroom1_fan', 'bedroom1_fan_status')">
+                                <img src="/static/image/fan_off.png" width="50px" id="bedroom1_fan_off" class="" onclick="livingOn('bedroom1_fan_off','bedroom1_fan_on', 'bedroom1_fan', 'bedroom1_fan_status')">
+                                <br/>
+                                <span>Quạt: <span id="bedroom1_fan_status"></span></span>
+                            </div>
+                            <div class="bedroom1_wc border border-4 rounded p-4">
+                                <a id="bedroom1_wc" style="display: none;" href="{{ duongdan_dentolet  }}" type="button">{{ dentolet  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="bedroom1_wc_on" class="" onclick="livingOff('bedroom1_wc_on','bedroom1_wc_off', 'bedroom1_wc', 'bedroom1_wc_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="bedroom1_wc_off" class="" onclick="livingOn('bedroom1_wc_off','bedroom1_wc_on', 'bedroom1_wc', 'bedroom1_wc_status')">
+                                <br/>
+                                <span>Đèn WC: <span id="bedroom1_wc_status"></span></span>
+                            </div>
+                            
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="bedroom2">
+                <div class="border border-4 rounded m-2 p-4">
+                    <h3>PHÒNG NGỦ 2</h3>
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <div class="bedroom2_light border border-4 rounded p-4" style="margin-right: 50px;">
+                                <a id="bedroom2_light" style="display: none;" href="{{ duongdan_denngu2  }}" type="button">{{ denngu2  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="bedroom2_light_on" class="" onclick="livingOff('bedroom2_light_on','bedroom2_light_off', 'bedroom2_light', 'bedroom2_light_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="bedroom2_light_off" class="" onclick="livingOn('bedroom2_light_off','bedroom2_light_on', 'bedroom2_light', 'bedroom2_light_status')">
+                                <br/>
+                                <span>Đèn: <span id="bedroom2_light_status"></span></span>
+                            </div>
+                            <div class="bedroom2_light border border-4 rounded p-4" style="margin-right: 50px;">
+                                <a id="light_stairs" style="display: none;" href="{{ duongdan_dencauthang  }}" type="button">{{ dencauthang  }}</a>
+                                <img src="/static/image/light_on.png" width="50px" id="light_stairs_on" class="" onclick="livingOff('light_stairs_on','light_stairs_off','light_stairs','light_stairs_status')">
+                                <img src="/static/image/light_off.png" width="50px" id="light_stairs_off" class="" onclick="livingOn('light_stairs_off','light_stairs_on','light_stairs','light_stairs_status')">
+                                <br/>
+                                <span>Đèn cầu thang: <span id="light_stairs_status"></span></span>
+                            </div>
+                            
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+   <script>
+        let clock = () => {
+        let date = new Date();
+        let hrs = date.getHours();
+        let mins = date.getMinutes();
+        let secs = date.getSeconds();
+        let period = "AM";
+        if (hrs == 0) {
+            hrs = 12;
+        } else if (hrs >= 12) {
+            hrs = hrs - 12;
+            period = "PM";
+        }
+        hrs = hrs < 10 ? "0" + hrs : hrs;
+        mins = mins < 10 ? "0" + mins : mins;
+        secs = secs < 10 ? "0" + secs : secs;
+
+        let time = `${hrs}:${mins}:${secs}:${period}`;
+        document.getElementById("today_time").innerText = time;
+        setTimeout(clock, 1000);
+        };
+
+        clock(); 
+       function initState(){
+           //init state of living room
+           //light living
+            if(document.getElementById("light").textContent == "ON"){
+                document.getElementById("light_off").classList.add("d-none");
+                document.getElementById("light_status").innerHTML = "ON";
+            } else{
+                document.getElementById("light_on").classList.add("d-none");
+                document.getElementById("light_status").innerHTML = "OFF";
+            }
+            //light door
+            if(document.getElementById("light_door").textContent == "ON"){
+                document.getElementById("light_door_off").classList.add("d-none");
+                document.getElementById("light_door_status").innerHTML = "ON";
+            } else{
+                document.getElementById("light_door_on").classList.add("d-none");
+                document.getElementById("light_door_status").innerHTML = "OFF";
+            }
+            
+            //door
+            if(document.getElementById("door").textContent == "ON"){
+                document.getElementById("door_off").classList.add("d-none");
+                document.getElementById("door_status").innerHTML = "ON";
+            } else{
+                document.getElementById("door_on").classList.add("d-none");
+                document.getElementById("door_status").innerHTML = "OFF";
+            }
+        // init state of kitchen
+            if(document.getElementById("kitchen_light").textContent == "ON"){
+                    document.getElementById("kitchen_light_off").classList.add("d-none");
+                    document.getElementById("kitchen_light_status").innerHTML = "ON";
+            } else{
+                document.getElementById("kitchen_light_on").classList.add("d-none");
+                document.getElementById("kitchen_light_status").innerHTML = "OFF";
+            }
+        // init state of bedroom 1
+            if(document.getElementById("bedroom1_light").textContent == "ON"){
+                document.getElementById("bedroom1_light_off").classList.add("d-none");
+                document.getElementById("bedroom1_light_status").innerHTML = "ON";
+            } else{
+                document.getElementById("bedroom1_light_on").classList.add("d-none");
+                document.getElementById("bedroom1_light_status").innerHTML = "OFF";
+            }
+            if(document.getElementById("bedroom1_fan").textContent == "ON"){
+                    document.getElementById("bedroom1_fan_off").classList.add("d-none");
+                    document.getElementById("bedroom1_fan_status").innerHTML = "ON";
+            } else{
+                document.getElementById("bedroom1_fan_on").classList.add("d-none");
+                document.getElementById("bedroom1_fan_status").innerHTML = "OFF";
+            }
+            if(document.getElementById("bedroom1_wc").textContent == "ON"){
+                    document.getElementById("bedroom1_wc_off").classList.add("d-none");
+                    document.getElementById("bedroom1_wc_status").innerHTML = "ON";
+            } else{
+                document.getElementById("bedroom1_wc_on").classList.add("d-none");
+                document.getElementById("bedroom1_wc_status").innerHTML = "OFF";
+            }
+        // init state of bedroom 2
+        if(document.getElementById("bedroom2_light").textContent == "ON"){
+                document.getElementById("bedroom2_light_off").classList.add("d-none");
+                document.getElementById("bedroom2_light_status").innerHTML = "ON";
+            } else{
+                document.getElementById("bedroom2_light_on").classList.add("d-none");
+                document.getElementById("bedroom2_light_status").innerHTML = "OFF";
+            }          
+         
+	// light stairs
+            if(document.getElementById("light_stairs").textContent == "ON"){
+                document.getElementById("light_stairs_off").classList.add("d-none");
+                document.getElementById("light_stairs_status").innerHTML = "ON";
+            } else{
+                document.getElementById("light_stairs_on").classList.add("d-none");
+                document.getElementById("light_stairs_status").innerHTML = "OFF";
+            }
+        
+       }
+       initState();
+       function livingOff(valueon, valueoff, object, status) {
+            document.getElementById(valueon).classList.add("d-none");
+            document.getElementById(valueoff).classList.remove("d-none");
+            document.getElementById(object).click();
+            document.getElementById(object).innerHTML = "OFF";
+       
+        }
+        function livingOn(valueon,valueoff, object, status) {
+            document.getElementById(valueon).classList.add("d-none");
+            document.getElementById(valueoff).classList.remove("d-none");
+            document.getElementById(object).click();
+            document.getElementById(object).innerHTML = "ON";
+           
+        }
+
+   </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6d9caecffa.js" crossorigin="anonymous"></script>
+</body>
+</html>
