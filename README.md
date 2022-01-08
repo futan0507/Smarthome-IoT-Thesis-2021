@@ -8,7 +8,7 @@ With the goal of applying IoT to life. We decided to implement the project of "R
 •	Results & Conclusion
 In addition, the project also applies IoT solutions for building websites that independently control sensor devices. Through the web we can control on / off lights, fans, read the temperature-humidity sensor values, light warning when gas is detected.
 
-IMPLEMENTATION OF MQTT PROMOTION ON HARDWARE, WEBSERVER CONFIGURATION & CLOUD SERVICE
+DEPLOYMENT MQTT ON HARDWARE, WEBSERVER CONFIGURATION & CLOUD SERVICE
 
 ARCHITECTURE & PROGRAM DEMO
 
